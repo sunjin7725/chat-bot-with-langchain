@@ -1,7 +1,10 @@
 openai
 pyyaml
 streamlit
-PyPDF2
-youtube_transcript_api
 streamlit-option-menu
 st_pages
+langchain
+langchain-community
+langchain_openai
+duckduckgo-search
+psycopg2

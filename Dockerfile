@@ -20,5 +20,7 @@ EXPOSE 8500
 # 실행 권한 설정
 RUN chmod +x /app/run.py
 
+HEALTHCHECK CMD curl --fail http://localhost:8500/_stcore/health
+
 WORKDIR /app
 CMD ["streamlit", "run", "run.py", "--server.address", "0.0.0.0", "--server.port", "8500"]

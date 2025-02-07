@@ -1,0 +1,19 @@
+[[pages]]
+path = "app_pages/home.py"
+name = "Home"
+icon = "🏠"
+
+[[pages]]
+path = "app_pages/simple_chat.py"
+name = "Simple Chat"
+icon = "🦜"
+
+[[pages]]
+path = "app_pages/langchain_chatbot_sjkim.py"
+name = "Chat bot(진선)"
+icon = "🦜"
+
+[[pages]]
+path = "app_pages/langchain_chatbot_soo-bin.py"
+name = "Chat bot(빈수)"
+icon = "🦜"

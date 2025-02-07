@@ -7,4 +7,4 @@ langchain
 langchain-community
 langchain_openai
 duckduckgo-search
-psycopg2
+psycopg2-binary

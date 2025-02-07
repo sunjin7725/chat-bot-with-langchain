@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
 
 # requirements.txt 복사 및 패키지 설치
 COPY requirements.txt /app/requirements.txt
+RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # 애플리케이션 코드 복사

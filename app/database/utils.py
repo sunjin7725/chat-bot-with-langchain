@@ -8,6 +8,7 @@ def get_chat_history(username: str, client: PostgresClient) -> List[Dict]:
     SELECT *
       FROM chat
      WHERE username='{username}'
+     ORDER BY create_datetime
     """
 
     with client.conn.cursor() as cursor:

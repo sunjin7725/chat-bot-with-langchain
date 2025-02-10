@@ -1,8 +1,9 @@
 from datetime import datetime
 from langchain.tools import Tool
 
-from langchain_community.utilities import DuckDuckGoSearchAPIWrapper
-from langchain_community.tools import DuckDuckGoSearchResults, DuckDuckGoSearchRun, tool
+from langchain_community.utilities import DuckDuckGoSearchAPIWrapper, WikipediaAPIWrapper
+from langchain_community.tools import DuckDuckGoSearchResults, DuckDuckGoSearchRun, WikipediaQueryRun
+from langchain_experimental.tools import PythonAstREPLTool
 
 from streamlit import runtime
 from streamlit.runtime.scriptrunner import get_script_run_ctx
@@ -10,6 +11,10 @@ from streamlit.runtime.scriptrunner import get_script_run_ctx
 search_wrapper = DuckDuckGoSearchAPIWrapper(region="wt-wt", max_results=10, time="y")
 ddg_search_results = DuckDuckGoSearchResults(api_wrapper=search_wrapper)
 ddg_search = DuckDuckGoSearchRun(api_wrapper=search_wrapper)
+
+wikipidia = WikipediaQueryRun(api_wrapper=WikipediaAPIWrapper())
+
+python_repl = PythonAstREPLTool()
 
 datetime_tool = Tool(name="Datetime", func=lambda x: datetime.now(), description="Returns the current datetime")
 who_are_you_tool = Tool(

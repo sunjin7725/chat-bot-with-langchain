@@ -8,3 +8,5 @@ langchain-community
 langchain_openai
 duckduckgo-search
 psycopg2-binary
+wikipedia
+langchain_experimental

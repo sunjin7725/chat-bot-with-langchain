@@ -12,7 +12,15 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain.memory import ConversationBufferWindowMemory
 from langchain_core.chat_history import InMemoryChatMessageHistory
 from langchain_openai import ChatOpenAI
-from langchain_tools import datetime_tool, ddg_search, who_are_you_tool, get_remote_ip_tool, get_remote_ip
+from langchain_tools import (
+    datetime_tool,
+    ddg_search,
+    who_are_you_tool,
+    get_remote_ip_tool,
+    get_remote_ip,
+    wikipidia,
+    python_repl,
+)
 from streamlit_utils import display_chat_history
 
 from settings import secret_path
@@ -27,12 +35,12 @@ with open(secret_path, "r", encoding="utf-8") as f:
 api_key = secret["openai"]["api_key"]
 
 llm = ChatOpenAI(api_key=api_key, model="gpt-4o", temperature=0, streaming=True)
-tools = [datetime_tool, ddg_search, who_are_you_tool, get_remote_ip_tool]
+tools = [datetime_tool, ddg_search, who_are_you_tool, get_remote_ip_tool, wikipidia, python_repl]
 
 prompt = ChatPromptTemplate(
     [
         (
-            "system",
+            "user",
             """
             Assistant can assist with a variety of tasks, from answering simple questions to providing detailed explanations.
 
@@ -102,7 +110,7 @@ display_chat_history(st.session_state.chat_history)
 
 if prompt := st.chat_input():
     with st.chat_message("user"):
-        st.write(prompt)
+        st.markdown(prompt)
 
         history = {
             "session_id": st.session_state.session_id,
@@ -117,10 +125,11 @@ if prompt := st.chat_input():
     with st.chat_message("assistant"):
         st_callback = StreamlitCallbackHandler(st.container())
         response = agent_executor.invoke({"input": prompt}, {"callbacks": [st_callback]})
+        # response = agent_executor.invoke({"input": prompt})
 
         # 응답 형식 검증
         if isinstance(response, dict) and "output" in response:
-            st.write(response["output"])
+            st.markdown(response["output"])
 
             history = {
                 "session_id": st.session_state.session_id,
@@ -133,7 +142,7 @@ if prompt := st.chat_input():
             st.session_state.chat_history.append(history)
             st.session_state.client.insert("chat", history)
         else:
-            st.write(
+            st.makrdown(
                 "Error: The response format is incorrect. Please ensure the response follows the specified format."
             )
             print("Invalid response format:", response)  # 디버깅을 위한 출력
